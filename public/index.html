@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>استبيان تقييم البرنامج التدريبي على نظام Docsys</title>
+  <link rel="stylesheet" href="/css/survey.css">
+</head>
+<body>
+  <main id="app" aria-live="polite">
+    <!-- Gate state: name + email -->
+    <section id="gate" class="gate">
+      <h1>استبيان تقييم البرنامج التدريبي على نظام Docsys</h1>
+      <p class="subtitle">نشكر تعاونكم في تطوير برامجنا التدريبية</p>
+      <div class="intro" id="intro">يستغرق الاستبيان نحو ٧–٨ دقائق. إجاباتكم محل تقدير، ولن تُربط بأسمائكم في التقارير العامة.</div>
+      <div>
+        <label for="name">الاسم</label>
+        <input id="name" type="text" autocomplete="name" required maxlength="200">
+        <div class="err" id="name-err" hidden>يرجى إدخال الاسم</div>
+      </div>
+      <div>
+        <label for="email">البريد الإلكتروني</label>
+        <input id="email" type="email" autocomplete="email" required maxlength="320">
+        <div class="err" id="email-err" hidden>يرجى إدخال بريد إلكتروني صحيح</div>
+      </div>
+      <div>
+        <button id="start-btn" class="btn-primary" type="button">بدء الاستبيان ←</button>
+      </div>
+    </section>
+
+    <!-- Survey state -->
+    <section id="survey" hidden>
+      <div class="progress-bar">
+        <div class="track"><div class="fill" id="progress-fill"></div></div>
+        <span class="count" id="progress-count">٠ من ٣٠ سؤال</span>
+      </div>
+      <div id="sections"></div>
+      <div class="submit-row">
+        <button id="submit-btn" class="btn-primary" type="button" disabled>إرسال الاستبيان</button>
+        <p style="font-size:13px;color:var(--text-muted);margin:0">لكم جزيل الشكر على مشاركتكم.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="duplicate-modal" class="modal-backdrop" hidden>
+    <div class="modal">
+      <h3>تنبيه</h3>
+      <p>لاحظنا أنه سبق إرسال استبيان بهذا البريد الإلكتروني. هل ترغبون في إرسال هذه الإجابات الجديدة على أي حال؟</p>
+      <div class="actions">
+        <button id="dup-confirm" class="btn-primary">نعم، أرسلوا</button>
+        <button id="dup-cancel" class="btn-outline">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script type="module" src="/js/survey.js"></script>
+</body>
+</html>
