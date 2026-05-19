@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>لوحة تحكم استبيان التدريب</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="topbar">
+      <div class="actions">
+        <select id="filter-range" class="filter-select" aria-label="النطاق الزمني">
+          <option value="all">جميع البيانات</option>
+          <option value="today">اليوم</option>
+          <option value="week">آخر ٧ أيام</option>
+          <option value="month">آخر ٣٠ يوم</option>
+        </select>
+        <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted)">
+          <input type="checkbox" id="filter-duplicates"> تضمين المكرّرات
+        </label>
+        <button id="refresh-btn" class="btn-outline-admin" type="button">⟳ تحديث</button>
+        <button id="logout-btn" class="btn-outline-admin" type="button">خروج</button>
+      </div>
+      <h1>لوحة تحكم استبيان تقييم التدريب على نظام Docsys</h1>
+    </header>
+
+    <div id="dashboard" class="bento" aria-live="polite">
+      <div class="loading-state">جارٍ تحميل البيانات...</div>
+    </div>
+
+    <footer class="footer-actions" hidden id="footer">
+      <a id="report-link" href="/admin/report" target="_blank" class="btn-export outline">🖨️ تقرير قابل للطباعة</a>
+      <button id="export-csv" class="btn-export gold" type="button">⬇ تنزيل CSV</button>
+      <button id="export-json" class="btn-export" type="button">⬇ تنزيل JSON</button>
+    </footer>
+  </main>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>
