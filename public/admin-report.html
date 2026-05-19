@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>تقرير استبيان التدريب</title>
+  <link rel="stylesheet" href="/css/print.css">
+</head>
+<body>
+  <main class="report-shell" id="report-root">
+    <div class="loading-state">جارٍ تحميل التقرير...</div>
+  </main>
+  <script type="module">
+    import { apiFetch } from '/js/shared/api.js';
+
+    const root = document.getElementById('report-root');
+    const params = new URLSearchParams(window.location.search);
+
+    function fmtPct(n) { return Math.round((n || 0) * 100) + '٪'; }
+
+    async function load() {
+      try {
+        const stats = await apiFetch(`/api/admin/stats?${params.toString()}`);
+        if (stats.kpis.totalResponses === 0) {
+          root.innerHTML = '<h1>تقرير الاستبيان</h1><p>لا توجد ردود في هذا النطاق.</p>';
+          return;
+        }
+        root.innerHTML = `
+          <h1>تقرير استبيان تقييم البرنامج التدريبي على نظام Docsys</h1>
+          <p class="meta">تاريخ التقرير: ${new Date().toLocaleDateString('ar-SA')}</p>
+          <div class="report-section">
+            <h2>المؤشرات الرئيسية</h2>
+            <div class="report-kpis">
+              <div class="report-kpi"><div class="val">${stats.kpis.totalResponses}</div><div class="lbl">إجمالي الردود</div></div>
+              <div class="report-kpi"><div class="val">${stats.kpis.uniqueRespondents}</div><div class="lbl">المستجيبون الفريدون</div></div>
+              <div class="report-kpi"><div class="val">${stats.kpis.overallSatisfactionAvg ?? '—'}</div><div class="lbl">متوسط الرضا</div></div>
+              <div class="report-kpi"><div class="val">${stats.kpis.npsScore ?? '—'}</div><div class="lbl">NPS</div></div>
+              <div class="report-kpi"><div class="val">${fmtPct(stats.kpis.completionRate)}</div><div class="lbl">معدّل الإتمام</div></div>
+            </div>
+          </div>
+          <div class="report-section">
+            <h2>متوسطات الأقسام</h2>
+            ${stats.categoryAverages.map(c => `
+              <div class="report-bar">
+                <span class="score">${c.avg.toFixed(1)}</span>
+                <div class="track"><div class="fill" style="width:${(c.avg/5)*100}%"></div></div>
+                <span class="name">${c.title}</span>
+              </div>
+            `).join('')}
+          </div>
+          <div class="report-section">
+            <h2>أبرز الأسئلة</h2>
+            <p><strong>الأعلى تقييماً:</strong></p>
+            <ul>${stats.topRated.map(t => `<li>${t.label} — ${t.avg.toFixed(1)}</li>`).join('')}</ul>
+            <p><strong>بحاجة إلى تطوير:</strong></p>
+            <ul>${stats.bottomRated.map(t => `<li>${t.label} — ${t.avg.toFixed(1)}</li>`).join('')}</ul>
+          </div>
+        `;
+      } catch (err) {
+        if (err.status === 401) window.location.href = '/admin-login';
+        else root.innerHTML = '<p>تعذّر تحميل البيانات</p>';
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
