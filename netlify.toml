@@ -40,4 +40,4 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer"
-    Permissions-Policy = "interest-cohort=()"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

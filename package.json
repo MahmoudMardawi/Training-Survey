@@ -7,6 +7,9 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "devDependencies": {
+    "netlify-cli": "^17"
+  },
   "scripts": {
     "test": "node --test tests/",
     "dev": "netlify dev",
