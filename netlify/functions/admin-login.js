@@ -26,7 +26,12 @@ export default async (req) => {
   try { body = await req.json(); } catch { return new Response('Bad JSON', { status: 400 }); }
   const { username = '', password = '' } = body;
 
-  const okUser = timingSafeStringEqual(username, process.env.ADMIN_USERNAME || '');
+  // Username comparison is case-insensitive (standard practice).
+  // Password comparison is case-sensitive — case matters.
+  const okUser = timingSafeStringEqual(
+    String(username).trim().toLowerCase(),
+    String(process.env.ADMIN_USERNAME || '').toLowerCase()
+  );
   const okPass = timingSafeStringEqual(password, process.env.ADMIN_PASSWORD || '');
   if (!okUser || !okPass) {
     await recordFailure(ip);
