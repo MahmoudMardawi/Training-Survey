@@ -1,0 +1,18 @@
+{
+  "name": "training-survey",
+  "version": "1.0.0",
+  "description": "Arabic training-feedback survey for DocsysFrontend training program",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test tests/",
+    "dev": "netlify dev",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}
