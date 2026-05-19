@@ -147,11 +147,13 @@ main { max-width: 720px; margin: 0 auto; padding: 24px; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Duplicate modal */
+/* Duplicate modal — hidden by default; .show class makes it visible */
 .modal-backdrop {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex;
+  display: none;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5);
   align-items: center; justify-content: center; padding: 16px; z-index: 100;
 }
+.modal-backdrop.show { display: flex; }
 .modal {
   background: #fff; border-radius: 12px; padding: 24px; max-width: 480px; width: 100%;
 }

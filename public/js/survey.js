@@ -54,6 +54,7 @@ function loadDraft() {
 function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
 
 function flatQuestions() {
+  if (!state.schema?.sections) return [];
   return state.schema.sections.flatMap(s => s.questions);
 }
 
@@ -203,6 +204,10 @@ function startSurvey(respondent) {
 }
 
 async function submit(confirmDuplicate = false) {
+  if (!state.schema) {
+    showToast('انتهت الجلسة. يرجى إعادة تحميل الصفحة والبدء من جديد.');
+    return;
+  }
   const missing = flatQuestions().find(q => q.required && (state.answers[q.id] == null || state.answers[q.id] === ''));
   if (missing) {
     document.querySelector(`[data-qrow="${missing.id}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -224,7 +229,7 @@ async function submit(confirmDuplicate = false) {
     });
     if (data.requiresConfirmation) {
       el.submitBtn.classList.remove('loading'); el.submitBtn.disabled = false;
-      el.dupModal.hidden = false;
+      el.dupModal.classList.add('show');
       return;
     }
     clearDraft();
@@ -236,6 +241,14 @@ async function submit(confirmDuplicate = false) {
 }
 
 function init() {
+  if (el.dupModal) el.dupModal.classList.remove('show');
+
+  // Also handle bfcache restores: when a user clicks Back from /thanks,
+  // the browser may restore this page from memory with stale modal state.
+  window.addEventListener('pageshow', () => {
+    if (el.dupModal) el.dupModal.classList.remove('show');
+  });
+
   el.startBtn.addEventListener('click', async () => {
     const r = validateGate();
     if (!r) return;
@@ -253,8 +266,8 @@ function init() {
   });
 
   el.submitBtn.addEventListener('click', () => submit(false));
-  el.dupConfirm.addEventListener('click', () => { el.dupModal.hidden = true; submit(true); });
-  el.dupCancel.addEventListener('click', () => { el.dupModal.hidden = true; });
+  el.dupConfirm.addEventListener('click', () => { el.dupModal.classList.remove('show'); submit(true); });
+  el.dupCancel.addEventListener('click', () => { el.dupModal.classList.remove('show'); });
 }
 
 init();
