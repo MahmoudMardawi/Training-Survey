@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "title": "استبيان تقييم البرنامج التدريبي على نظام Docsys",
+  "subtitle": "نشكر تعاونكم في تطوير برامجنا التدريبية",
+  "intro": "يستغرق الاستبيان نحو ٧–٨ دقائق. إجاباتكم محل تقدير، ولن تُربط بأسمائكم في التقارير العامة.",
+  "sections": [
+    {
+      "id": "trainer",
+      "title": "تقييم المدرّب",
+      "questions": [
+        { "id": "trainer_clarity",        "type": "stars",    "label": "كيف تقيّمون وضوح المدرّب في عرض المحتوى التدريبي؟", "required": true },
+        { "id": "trainer_mastery",        "type": "stars",    "label": "كيف تقيّمون مدى إلمام المدرّب بمحتوى نظام Docsys ومكوّناته؟", "required": true },
+        { "id": "trainer_engagement",     "type": "stars",    "label": "كيف تقيّمون تفاعل المدرّب مع المتدربين وحرصه على إشراكهم؟", "required": true },
+        { "id": "trainer_time_mgmt",      "type": "stars",    "label": "كيف تقيّمون التزام المدرّب بالوقت وحُسن إدارة الجلسة؟", "required": true },
+        { "id": "trainer_responsiveness", "type": "likert",   "label": "استجاب المدرّب لاستفساراتنا بشكل وافٍ ومناسب.", "required": true }
+      ]
+    },
+    {
+      "id": "online_sessions",
+      "title": "الجلسات التدريبية الإلكترونية",
+      "questions": [
+        { "id": "online_platform",        "type": "stars", "label": "جودة المنصة الإلكترونية المستخدمة في التدريب", "required": true },
+        { "id": "online_av_quality",      "type": "stars", "label": "وضوح الصوت والصورة خلال الجلسات الإلكترونية", "required": true },
+        { "id": "online_access_review",   "type": "stars", "label": "سهولة الوصول إلى المحتوى وإمكانية مراجعته لاحقاً", "required": true },
+        { "id": "online_duration",        "type": "stars", "label": "ملاءمة مدة الجلسات الإلكترونية وعددها", "required": true }
+      ]
+    },
+    {
+      "id": "onsite_sessions",
+      "title": "الجلسات التدريبية الحضورية",
+      "questions": [
+        { "id": "onsite_venue",           "type": "stars", "label": "كيف تقيّمون ملاءمة قاعات التدريب في مكاتب الولاية لانعقاد الجلسات الحضورية؟", "required": true },
+        { "id": "onsite_organization",    "type": "stars", "label": "تنظيم الجلسات الحضورية وانضباطها", "required": true },
+        { "id": "onsite_practical_time",  "type": "stars", "label": "كفاية الوقت المخصص للتطبيق العملي", "required": true },
+        { "id": "onsite_discussion",      "type": "stars", "label": "توفّر فرص النقاش والمشاركة بين الحضور", "required": true }
+      ]
+    },
+    {
+      "id": "system_understanding",
+      "title": "فهم النظام ومكوّناته",
+      "questions": [
+        { "id": "sys_treatment_stages",   "type": "stars",  "label": "مدى فهمكم لمراحل دورة المعاملات في النظام (الإدراج الأولي، الفهرسة، التدقيق والمراجعة، التصحيح)", "required": true },
+        { "id": "sys_records_mgmt",       "type": "stars",  "label": "قدرتكم على إدارة السجلات والوثائق والمرفقات داخل النظام", "required": true },
+        { "id": "sys_search",             "type": "stars",  "label": "قدرتكم على البحث في النظام (السريع والمتقدّم)", "required": true },
+        { "id": "sys_statistics",         "type": "stars",  "label": "قدرتكم على قراءة لوحة الإحصاءات وفهم مؤشراتها", "required": true },
+        { "id": "sys_settings",           "type": "stars",  "label": "قدرتكم على إدارة إعدادات النظام (SettingManagement)", "required": true },
+        { "id": "sys_confidence",         "type": "likert", "label": "أصبحت أكثر ثقة في استخدام النظام بعد إتمامي هذا التدريب.", "required": true },
+        { "id": "sys_help_colleagues",    "type": "likert", "label": "بإمكاني — عند الحاجة — توجيه زملائي ومساعدتهم في استخدام النظام.", "required": true }
+      ]
+    },
+    {
+      "id": "content_materials",
+      "title": "المحتوى والمواد",
+      "questions": [
+        { "id": "content_relevance",      "type": "stars", "label": "ملاءمة المحتوى التدريبي لطبيعة عملكم اليومي", "required": true },
+        { "id": "content_quality",        "type": "stars", "label": "جودة المواد التدريبية والشروحات المقدّمة", "required": true },
+        { "id": "content_balance",        "type": "stars", "label": "توازن المحتوى بين الجانب النظري والتطبيق العملي", "required": true }
+      ]
+    },
+    {
+      "id": "overall",
+      "title": "التقييم العام والتوصية",
+      "questions": [
+        { "id": "overall_program",        "type": "stars", "label": "البرنامج التدريبي بشكل عام", "required": true },
+        { "id": "overall_goals",          "type": "stars", "label": "مدى تحقيق التدريب لأهدافكم الوظيفية", "required": true },
+        { "id": "overall_nps",            "type": "nps",   "label": "ما مدى استعدادكم لترشيح هذا التدريب لزملائكم؟ (٠ = إطلاقاً، ١٠ = بشدة)", "required": true }
+      ]
+    },
+    {
+      "id": "feedback",
+      "title": "ملاحظاتكم واقتراحاتكم",
+      "questions": [
+        { "id": "fb_positives",           "type": "textarea", "label": "ما أبرز الجوانب الإيجابية التي لاحظتموها في البرنامج التدريبي؟",       "required": true,  "maxLength": 2000 },
+        { "id": "fb_improvements",        "type": "textarea", "label": "ما الجوانب التي ترون أنها تحتاج إلى تطوير في تجربتكم التدريبية؟",      "required": true,  "maxLength": 2000 },
+        { "id": "fb_future_suggestions",  "type": "textarea", "label": "ما اقتراحاتكم لتحسين البرامج التدريبية القادمة على نظام Docsys؟",        "required": false, "maxLength": 2000 },
+        { "id": "fb_trainer_notes",       "type": "textarea", "label": "هل لديكم ملاحظات تودّون مشاركتها حول أداء المدرّب بشكل خاص؟",         "required": false, "maxLength": 2000 }
+      ]
+    }
+  ]
+}
