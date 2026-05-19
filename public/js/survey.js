@@ -229,7 +229,7 @@ async function submit(confirmDuplicate = false) {
     });
     if (data.requiresConfirmation) {
       el.submitBtn.classList.remove('loading'); el.submitBtn.disabled = false;
-      el.dupModal.hidden = false;
+      el.dupModal.classList.add('show');
       return;
     }
     clearDraft();
@@ -241,7 +241,13 @@ async function submit(confirmDuplicate = false) {
 }
 
 function init() {
-  if (el.dupModal) el.dupModal.hidden = true;
+  if (el.dupModal) el.dupModal.classList.remove('show');
+
+  // Also handle bfcache restores: when a user clicks Back from /thanks,
+  // the browser may restore this page from memory with stale modal state.
+  window.addEventListener('pageshow', () => {
+    if (el.dupModal) el.dupModal.classList.remove('show');
+  });
 
   el.startBtn.addEventListener('click', async () => {
     const r = validateGate();
@@ -260,8 +266,8 @@ function init() {
   });
 
   el.submitBtn.addEventListener('click', () => submit(false));
-  el.dupConfirm.addEventListener('click', () => { el.dupModal.hidden = true; submit(true); });
-  el.dupCancel.addEventListener('click', () => { el.dupModal.hidden = true; });
+  el.dupConfirm.addEventListener('click', () => { el.dupModal.classList.remove('show'); submit(true); });
+  el.dupCancel.addEventListener('click', () => { el.dupModal.classList.remove('show'); });
 }
 
 init();
