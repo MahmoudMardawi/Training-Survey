@@ -12,7 +12,8 @@
         { "id": "trainer_mastery",        "type": "stars",    "label": "كيف تقيّمون مدى إلمام المدرّب بمحتوى نظام Docsys ومكوّناته؟", "required": true },
         { "id": "trainer_engagement",     "type": "stars",    "label": "كيف تقيّمون تفاعل المدرّب مع المتدربين وحرصه على إشراكهم؟", "required": true },
         { "id": "trainer_time_mgmt",      "type": "stars",    "label": "كيف تقيّمون التزام المدرّب بالوقت وحُسن إدارة الجلسة؟", "required": true },
-        { "id": "trainer_responsiveness", "type": "likert",   "label": "استجاب المدرّب لاستفساراتنا بشكل وافٍ ومناسب.", "required": true }
+        { "id": "trainer_responsiveness", "type": "likert",   "label": "استجاب المدرّب لاستفساراتنا بشكل وافٍ ومناسب.", "required": true },
+        { "id": "attn_trainer_clear",     "type": "likert",   "label": "أسلوب المدرّب في توصيل المعلومة كان سهلاً ومفهوماً.", "required": true }
       ]
     },
     {
@@ -42,6 +43,7 @@
         { "id": "sys_treatment_stages",   "type": "stars",  "label": "مدى فهمكم لمراحل دورة المعاملات في النظام (الإدراج الأولي، الفهرسة، التدقيق والمراجعة، التصحيح)", "required": true },
         { "id": "sys_records_mgmt",       "type": "stars",  "label": "قدرتكم على إدارة السجلات والوثائق والمرفقات داخل النظام", "required": true },
         { "id": "sys_search",             "type": "stars",  "label": "قدرتكم على البحث في النظام (السريع والمتقدّم)", "required": true },
+        { "id": "attn_sys_search",        "type": "stars",  "label": "بعد إتمام التدريب، أصبح من السهل عليّ البحث عن المعاملات وتحديد موقعها في النظام.", "required": true },
         { "id": "sys_statistics",         "type": "stars",  "label": "قدرتكم على قراءة لوحة الإحصاءات وفهم مؤشراتها", "required": true },
         { "id": "sys_settings",           "type": "stars",  "label": "قدرتكم على إدارة إعدادات النظام (SettingManagement)", "required": true },
         { "id": "sys_confidence",         "type": "likert", "label": "أصبحت أكثر ثقة في استخدام النظام بعد إتمامي هذا التدريب.", "required": true },
@@ -54,7 +56,9 @@
       "questions": [
         { "id": "content_relevance",      "type": "stars", "label": "ملاءمة المحتوى التدريبي لطبيعة عملكم اليومي", "required": true },
         { "id": "content_quality",        "type": "stars", "label": "جودة المواد التدريبية والشروحات المقدّمة", "required": true },
-        { "id": "content_balance",        "type": "stars", "label": "توازن المحتوى بين الجانب النظري والتطبيق العملي", "required": true }
+        { "id": "content_balance",        "type": "stars", "label": "توازن المحتوى بين الجانب النظري والتطبيق العملي", "required": true },
+        { "id": "attn_bogus_topic",       "type": "likert", "label": "تناول البرنامج التدريبي موضوعات لا علاقة لها بنظام Docsys.", "required": true },
+        { "id": "attn_content_useful",    "type": "likert", "label": "ما تعلّمناه في التدريب مفيد لي في عملي اليومي.", "required": true }
       ]
     },
     {
@@ -63,6 +67,7 @@
       "questions": [
         { "id": "overall_program",        "type": "stars", "label": "البرنامج التدريبي بشكل عام", "required": true },
         { "id": "overall_goals",          "type": "stars", "label": "مدى تحقيق التدريب لأهدافكم الوظيفية", "required": true },
+        { "id": "attn_self_report",       "type": "likert", "label": "أجبت على أسئلة هذا الاستبيان بعناية وتركيز.", "required": true },
         { "id": "overall_nps",            "type": "nps",   "label": "ما مدى استعدادكم لترشيح هذا التدريب لزملائكم؟ (٠ = إطلاقاً، ١٠ = بشدة)", "required": true }
       ]
     },

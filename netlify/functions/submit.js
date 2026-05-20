@@ -2,6 +2,7 @@
 import crypto from 'node:crypto';
 import { responsesStore, emailIndexStore } from './_shared/blobs.js';
 import { hashEmail } from './_shared/auth.js';
+import { scoreAttention } from './_shared/traps.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -70,11 +71,15 @@ export default async (req) => {
     }
   }
 
+  const attention = scoreAttention(cleanAnswers);
+
   const response = {
     responseId,
     submittedAt,
     respondent: { name, email },
     isDuplicate: false,
+    isSuspect: attention.isSuspect,
+    attentionScore: { failed: attention.failed, checked: attention.checked, failedIds: attention.failedIds },
     submissionCountForEmail: submissionCount,
     userAgent: req.headers.get('user-agent') || '',
     questionsVersion: typeof body.questionsVersion === 'number' ? body.questionsVersion : 1,

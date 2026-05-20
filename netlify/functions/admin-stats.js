@@ -37,6 +37,7 @@ export default async (req) => {
     from: url.searchParams.get('from') || undefined,
     to:   url.searchParams.get('to')   || undefined,
     includeDuplicates: url.searchParams.get('includeDuplicates') === 'true',
+    includeSuspect:    url.searchParams.get('includeSuspect')    === 'true',
   };
 
   const [schema, responses] = await Promise.all([getSchema(), listAllResponses()]);

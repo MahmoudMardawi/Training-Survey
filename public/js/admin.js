@@ -5,7 +5,7 @@ import {
 } from './admin-charts.js';
 
 let currentStats = null;
-let filters = { range: 'all', includeDuplicates: false };
+let filters = { range: 'all', includeDuplicates: false, includeSuspect: false };
 let respondents = [];
 
 const $ = (sel) => document.querySelector(sel);
@@ -13,6 +13,7 @@ const $ = (sel) => document.querySelector(sel);
 function buildQuery() {
   const params = new URLSearchParams();
   if (filters.includeDuplicates) params.set('includeDuplicates', 'true');
+  if (filters.includeSuspect)    params.set('includeSuspect', 'true');
   const now = new Date();
   if (filters.range === 'today')   { const d = new Date(now); d.setHours(0,0,0,0); params.set('from', d.toISOString()); }
   if (filters.range === 'week')    { const d = new Date(now); d.setDate(d.getDate() - 7); params.set('from', d.toISOString()); }
@@ -73,12 +74,16 @@ function renderDashboard(stats) {
 
 function renderKpis(k) {
   const fmt = (n) => n == null ? '—' : String(n);
+  const suspectTile = k.suspectCount > 0
+    ? `<div class="tile kpi" style="border-color:rgba(239,68,68,0.4);background:linear-gradient(135deg,rgba(239,68,68,0.1),var(--tile-bg) 70%)"><h3>الردود المشبوهة</h3><div class="val" style="color:#fca5a5">${fmt(k.suspectCount)}</div><div class="sub">مستبعدة تلقائياً</div></div>`
+    : `<div class="tile kpi"><h3>الردود المشبوهة</h3><div class="val">${fmt(k.suspectCount || 0)}</div></div>`;
   return `
     <div class="tile kpi accent-green"><h3>إجمالي الردود</h3><div class="val">${fmt(k.totalResponses)}</div></div>
     <div class="tile kpi"><h3>الفريد</h3><div class="val">${fmt(k.uniqueRespondents)}</div></div>
     <div class="tile kpi accent-gold"><h3>متوسط الرضا</h3><div class="val">${k.overallSatisfactionAvg ?? '—'}</div></div>
     <div class="tile kpi"><h3>NPS</h3><div class="val">${fmt(k.npsScore)}</div></div>
     <div class="tile kpi"><h3>معدّل الإتمام</h3><div class="val">${Math.round((k.completionRate || 0) * 100)}٪</div></div>
+    ${suspectTile}
   `;
 }
 
@@ -147,15 +152,19 @@ function renderTimeAndRespondents(_timeTrend, respList) {
         <table class="resp-table">
           <thead><tr><th>#</th><th>الاسم</th><th>البريد</th><th>التاريخ</th><th>📋</th></tr></thead>
           <tbody>
-            ${respList.map((r, i) => `
-              <tr class="${r.isDuplicate ? 'dup' : ''}">
-                <td>${i + 1}</td>
-                <td>${escapeHtml(r.name)}</td>
-                <td style="font-size:11px">${escapeHtml(r.email)}</td>
-                <td style="font-size:11px">${new Date(r.submittedAt).toLocaleDateString('ar-SA')}</td>
-                <td>${r.isDuplicate ? '🔁' : ''}</td>
-              </tr>
-            `).join('')}
+            ${respList.map((r, i) => {
+              const flags = [r.isDuplicate ? '🔁' : '', r.isSuspect ? '⚠️' : ''].filter(Boolean).join(' ');
+              const rowClass = [r.isDuplicate ? 'dup' : '', r.isSuspect ? 'suspect' : ''].filter(Boolean).join(' ');
+              return `
+                <tr class="${rowClass}">
+                  <td>${i + 1}</td>
+                  <td>${escapeHtml(r.name)}</td>
+                  <td style="font-size:11px">${escapeHtml(r.email)}</td>
+                  <td style="font-size:11px">${new Date(r.submittedAt).toLocaleDateString('ar-SA')}</td>
+                  <td>${flags}</td>
+                </tr>
+              `;
+            }).join('')}
           </tbody>
         </table>
       </div>
@@ -188,6 +197,7 @@ function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp
 document.addEventListener('change', (e) => {
   if (e.target.id === 'filter-range') { filters.range = e.target.value; loadAll(); }
   if (e.target.id === 'filter-duplicates') { filters.includeDuplicates = e.target.checked; loadAll(); }
+  if (e.target.id === 'filter-suspect')    { filters.includeSuspect    = e.target.checked; loadAll(); }
 });
 document.addEventListener('click', async (e) => {
   if (e.target.id === 'refresh-btn') loadAll();

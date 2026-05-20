@@ -13,10 +13,14 @@ function inRange(iso, from, to) {
   return true;
 }
 
-export function computeStats(schema, allResponses, { from, to, includeDuplicates = false } = {}) {
-  const filtered = allResponses.filter(r =>
+export function computeStats(schema, allResponses, { from, to, includeDuplicates = false, includeSuspect = false } = {}) {
+  // Always count suspect submissions for the KPI, even when excluded from stats.
+  const inDateAndNotDup = allResponses.filter(r =>
     inRange(r.submittedAt, from, to) && (includeDuplicates || !r.isDuplicate)
   );
+  const suspectCount = inDateAndNotDup.filter(r => r.isSuspect).length;
+
+  const filtered = inDateAndNotDup.filter(r => includeSuspect || !r.isSuspect);
 
   const questions = [];
   for (const sec of schema.sections) {
@@ -143,13 +147,14 @@ export function computeStats(schema, allResponses, { from, to, includeDuplicates
   const timeTrend = [...dateMap.entries()].sort().map(([date, count]) => ({ date, count }));
 
   return {
-    filters: { from: from || null, to: to || null, includeDuplicates },
+    filters: { from: from || null, to: to || null, includeDuplicates, includeSuspect },
     kpis: {
       totalResponses,
       uniqueRespondents,
       overallSatisfactionAvg,
       npsScore,
       completionRate: round1(completionRate * 100) / 100,
+      suspectCount,
     },
     categoryAverages,
     perQuestion,
