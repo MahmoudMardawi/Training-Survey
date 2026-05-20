@@ -53,28 +53,47 @@ export default async (req) => {
   const submittedAt = nowIso();
   const responseId = `${submittedAt.replace(/[:.]/g, '-')}-${shortId()}`;
   const submissionCount = (existingIndex?.submissionCount || 0) + 1;
+
+  // "Latest wins": the NEW submission is the active one (isDuplicate=false).
+  // Any previous submissions from this email get re-flagged as duplicates so
+  // they're hidden from default stats but preserved in storage for audit.
+  const store = responsesStore();
+  if (existingIndex?.responseIds?.length) {
+    for (const oldId of existingIndex.responseIds) {
+      const old = await store.get(oldId, { type: 'json' });
+      if (old && !old.isDuplicate) {
+        old.isDuplicate = true;
+        old.supersededBy = responseId;
+        old.supersededAt = submittedAt;
+        await store.setJSON(oldId, old);
+      }
+    }
+  }
+
   const response = {
     responseId,
     submittedAt,
     respondent: { name, email },
-    isDuplicate: submissionCount > 1,
+    isDuplicate: false,
     submissionCountForEmail: submissionCount,
     userAgent: req.headers.get('user-agent') || '',
     questionsVersion: typeof body.questionsVersion === 'number' ? body.questionsVersion : 1,
     answers: cleanAnswers,
   };
 
-  await responsesStore().setJSON(responseId, response);
+  await store.setJSON(responseId, response);
 
   const newIndex = {
     emailHash,
     firstSubmittedAt: existingIndex?.firstSubmittedAt || submittedAt,
+    lastSubmittedAt: submittedAt,
     submissionCount,
+    activeResponseId: responseId,
     responseIds: [...(existingIndex?.responseIds || []), responseId],
   };
   await idxStore.setJSON(emailHash, newIndex);
 
-  return new Response(JSON.stringify({ responseId, isDuplicate: response.isDuplicate }), {
+  return new Response(JSON.stringify({ responseId, isDuplicate: false, supersededCount: submissionCount - 1 }), {
     status: 200, headers: { 'Content-Type': 'application/json' },
   });
 };
