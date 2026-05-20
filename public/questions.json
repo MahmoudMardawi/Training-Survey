@@ -11,7 +11,6 @@
         { "id": "trainer_clarity",        "type": "stars",    "label": "كيف تقيّمون وضوح المدرّب في عرض المحتوى التدريبي؟", "required": true },
         { "id": "trainer_mastery",        "type": "stars",    "label": "كيف تقيّمون مدى إلمام المدرّب بمحتوى نظام Docsys ومكوّناته؟", "required": true },
         { "id": "trainer_engagement",     "type": "stars",    "label": "كيف تقيّمون تفاعل المدرّب مع المتدربين وحرصه على إشراكهم؟", "required": true },
-        { "id": "trainer_time_mgmt",      "type": "stars",    "label": "كيف تقيّمون التزام المدرّب بالوقت وحُسن إدارة الجلسة؟", "required": true },
         { "id": "trainer_responsiveness", "type": "likert",   "label": "استجاب المدرّب لاستفساراتنا بشكل وافٍ ومناسب.", "required": true },
         { "id": "attn_trainer_clear",     "type": "likert",   "label": "أسلوب المدرّب في توصيل المعلومة كان سهلاً ومفهوماً.", "required": true }
       ]
@@ -22,7 +21,6 @@
       "questions": [
         { "id": "online_platform",        "type": "stars", "label": "جودة المنصة الإلكترونية المستخدمة في التدريب", "required": true },
         { "id": "online_av_quality",      "type": "stars", "label": "وضوح الصوت والصورة خلال الجلسات الإلكترونية", "required": true },
-        { "id": "online_access_review",   "type": "stars", "label": "سهولة الوصول إلى المحتوى وإمكانية مراجعته لاحقاً", "required": true },
         { "id": "online_duration",        "type": "stars", "label": "ملاءمة مدة الجلسات الإلكترونية وعددها", "required": true }
       ]
     },
@@ -32,8 +30,7 @@
       "questions": [
         { "id": "onsite_venue",           "type": "stars", "label": "كيف تقيّمون ملاءمة قاعات التدريب في مكاتب الولاية لانعقاد الجلسات الحضورية؟", "required": true },
         { "id": "onsite_organization",    "type": "stars", "label": "تنظيم الجلسات الحضورية وانضباطها", "required": true },
-        { "id": "onsite_practical_time",  "type": "stars", "label": "كفاية الوقت المخصص للتطبيق العملي", "required": true },
-        { "id": "onsite_discussion",      "type": "stars", "label": "توفّر فرص النقاش والمشاركة بين الحضور", "required": true }
+        { "id": "onsite_practical_time",  "type": "stars", "label": "كفاية الوقت المخصص للتطبيق العملي", "required": true }
       ]
     },
     {
@@ -46,8 +43,7 @@
         { "id": "attn_sys_search",        "type": "stars",  "label": "بعد إتمام التدريب، أصبح من السهل عليّ البحث عن المعاملات وتحديد موقعها في النظام.", "required": true },
         { "id": "sys_statistics",         "type": "stars",  "label": "قدرتكم على قراءة لوحة الإحصاءات وفهم مؤشراتها", "required": true },
         { "id": "sys_settings",           "type": "stars",  "label": "قدرتكم على إدارة إعدادات النظام (SettingManagement)", "required": true },
-        { "id": "sys_confidence",         "type": "likert", "label": "أصبحت أكثر ثقة في استخدام النظام بعد إتمامي هذا التدريب.", "required": true },
-        { "id": "sys_help_colleagues",    "type": "likert", "label": "بإمكاني — عند الحاجة — توجيه زملائي ومساعدتهم في استخدام النظام.", "required": true }
+        { "id": "sys_confidence",         "type": "likert", "label": "أصبحت أكثر ثقة في استخدام النظام بعد إتمامي هذا التدريب.", "required": true }
       ]
     },
     {
@@ -56,7 +52,6 @@
       "questions": [
         { "id": "content_relevance",      "type": "stars", "label": "ملاءمة المحتوى التدريبي لطبيعة عملكم اليومي", "required": true },
         { "id": "content_quality",        "type": "stars", "label": "جودة المواد التدريبية والشروحات المقدّمة", "required": true },
-        { "id": "content_balance",        "type": "stars", "label": "توازن المحتوى بين الجانب النظري والتطبيق العملي", "required": true },
         { "id": "attn_bogus_topic",       "type": "likert", "label": "تناول البرنامج التدريبي موضوعات لا علاقة لها بنظام Docsys.", "required": true },
         { "id": "attn_content_useful",    "type": "likert", "label": "ما تعلّمناه في التدريب مفيد لي في عملي اليومي.", "required": true }
       ]
