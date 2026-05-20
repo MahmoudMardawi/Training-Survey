@@ -21,11 +21,13 @@ export default async (req) => {
   const from = url.searchParams.get('from');
   const to   = url.searchParams.get('to');
   const includeDuplicates = url.searchParams.get('includeDuplicates') === 'true';
+  const includeSuspect    = url.searchParams.get('includeSuspect')    === 'true';
 
   const all = await listAllResponses();
   const list = all
     .filter(r => {
       if (!includeDuplicates && r.isDuplicate) return false;
+      if (!includeSuspect && r.isSuspect)      return false;
       const t = Date.parse(r.submittedAt);
       if (from && t < Date.parse(from)) return false;
       if (to   && t > Date.parse(to))   return false;
@@ -37,6 +39,7 @@ export default async (req) => {
       name: r.respondent?.name,
       email: r.respondent?.email,
       isDuplicate: !!r.isDuplicate,
+      isSuspect: !!r.isSuspect,
       submissionCountForEmail: r.submissionCountForEmail || 1,
     }));
 

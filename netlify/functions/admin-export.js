@@ -25,10 +25,12 @@ export default async (req) => {
   const from = url.searchParams.get('from');
   const to   = url.searchParams.get('to');
   const includeDuplicates = url.searchParams.get('includeDuplicates') === 'true';
+  const includeSuspect    = url.searchParams.get('includeSuspect')    === 'true';
 
   const all = await listAllResponses();
   const filtered = all.filter(r => {
     if (!includeDuplicates && r.isDuplicate) return false;
+    if (!includeSuspect && r.isSuspect)      return false;
     const t = Date.parse(r.submittedAt);
     if (from && t < Date.parse(from)) return false;
     if (to   && t > Date.parse(to))   return false;
